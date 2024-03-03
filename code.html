@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Saving Plant Care</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        header, footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            background-color: #0A5D35;
+            text-align: center;
+            padding: 5px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 999;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        nav a {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 32px;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            background-color: white;
+            color: #0A5D35;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            background-color: #f0f0f0;
+        }
+
+        main {
+            flex-grow: 1;
+            padding-bottom: 70px; /* Adjust for the fixed navigation bar */
+        }
+
+        .form-container {
+            background-color: #A8DFC5;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 10px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        input[type="number"] {
+            width: 70px;
+        }
+
+        .gif-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .gif-container .gif-thumbnails {
+            display: flex;
+            justify-content: center;
+        }
+
+        .gif-container .gif-thumbnail {
+            margin: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .gif-container .gif-thumbnail.selected {
+            border-color: blue;
+        }
+
+        .plants-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .plant-item {
+            text-align: center;
+            margin: 10px;
+            position: relative;
+        }
+
+        .plant-gif {
+            width: 150px; /* Adjust size as needed */
+            height: 150px; /* Adjust size as needed */
+        }
+
+        .plant-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #virtual-garden {
+            max-width: 800px;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+        }
+
+        #virtual-garden img {
+            width: 100%;
+            display: block;
+        }
+
+        #garden-info {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #greeting {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Water Saving Plant Care</h1>
+    </header>
+    <main>
+        <div class="container" id="home">
+            <h2 id="greeting">Hello, username</h2>
+            <div id="virtual-garden">
+                <h2>Your Virtual Garden</h2>
+                <img src="https://media.istockphoto.com/id/1056440024/vector/simple-green-field.jpg?s=612x612&w=0&k=20&c=uqerOJ4XWUUwQX4tkinduSLa5Z6YylFbCCSX9qkSdTQ=" alt="Garden Image" id="garden-image">
+                <div id="garden-info">Number of Plants: <span id="plant-count">0</span></div>
+            </div>
+        </div>
+        <div class="container" id="plants" style="display: none;">
+            <h2>Plants Page</h2>
+            <div class="plants-container"></div>
+        </div>
+        <div class="container" id="addPlant" style="display: none;">
+            <div class="form-container">
+                <h2>Plant Information</h2>
+                <div>
+                    <label for="typeOfPlant">Type of Plant:</label>
+                    <input type="text" id="typeOfPlant" name="typeOfPlant">
+                </div>
+                <div>
+                    <label for="ageOfPlant">Age of Plant (in months):</label>
+                    <input type="number" id="ageOfPlant" name="ageOfPlant" min="1" max="30">
+                </div>
+                <div class="gif-container">
+                    <h2>Pick a gif</h2>
+                    <div class="gif-thumbnails">
+                        <img src="https://media2.giphy.com/media/wNUxW8gisQdaOah3Nb/200.gif" alt="GIF 1" class="gif-thumbnail">
+                        <img src="https://media2.giphy.com/media/lnDbcmSGNQBL5doTzL/200.gif" alt="GIF 2" class="gif-thumbnail">
+                        <img src="https://media2.giphy.com/media/hQoe59eEpV0f8OfEa8/200.gif" alt="GIF 3" class="gif-thumbnail">
+                        <img src="https://media2.giphy.com/media/ZZTklXupTzGtbf9kYq/200.gif" alt="GIF 4" class="gif-thumbnail">
+                    </div>
+                </div>
+                <button id="addPlantButton">Add Plant</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Water Saving Plant Care</p>
+    </footer>
+    <nav>
+        <a href="#home">🏠</a>
+        <a href="#plants">🌿</a>
+        <a href="#addPlant">➕</a>
+    </nav>
+    <script>
+        // Function to add a plant to the list view and garden
+        function addPlant(type, gifUrl) {
+            // Add to list view
+            const plantsContainer = document.querySelector('.plants-container');
+            const plantItem = document.createElement('div');
+            plantItem.classList.add('plant-item');
+            plantItem.innerHTML = `
+                <img src="${gifUrl}" alt="${type}" class="plant-gif">
+                <div class="plant-name">${type}</div>
+            `;
+            plantsContainer.appendChild(plantItem);
+
+            // Update number of plants in garden
+            const plantCount = document.getElementById('plant-count');
+            plantCount.textContent = parseInt(plantCount.textContent) + 1;
+
+            // Add to virtual garden
+            const gardenImage = document.getElementById('garden-image');
+            const plantImage = document.createElement('img');
+            plantImage.src = gifUrl;
+            plantImage.alt = type;
+            plantImage.classList.add('plant-gif');
+            plantImage.style.position = 'absolute';
+            plantImage.style.left = `${Math.random() * 50 + 25}%`; // Randomize horizontal position (25% - 75%)
+            plantImage.style.top = `${Math.random() * 25 + 50}%`; // Randomize vertical position (50% - 75%)
+            gardenImage.parentNode.appendChild(plantImage);
+        }
+
+        // Event listener for add plant button
+        document.getElementById('addPlantButton').addEventListener('click', function() {
+            const typeOfPlant = document.getElementById('typeOfPlant').value;
+            const selectedGif = document.querySelector('.gif-thumbnail.selected');
+            if (typeOfPlant && selectedGif) {
+                const gifUrl = selectedGif.src;
+                addPlant(typeOfPlant, gifUrl);
+            } else {
+                alert('Please fill out all fields and select a GIF.');
+            }
+        });
+
+        // Event listener for GIF selection
+        document.querySelectorAll('.gif-thumbnail').forEach(gif => {
+            gif.addEventListener('click', function() {
+                document.querySelectorAll('.gif-thumbnail').forEach(g => g.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Event listeners for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.container').forEach(container => {
+                    container.style.display = 'none';
+                });
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
